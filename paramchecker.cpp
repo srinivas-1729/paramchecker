@@ -1,6 +1,6 @@
 
 bool bpmIsOk(float bpm);
-bool bpmIsOk(float bpm);
+bool spo2IsOk(float spo2);
 bool respRateIsOk(float respRate);
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
