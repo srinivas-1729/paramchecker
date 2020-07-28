@@ -6,11 +6,12 @@ bool isReadingsOk(float val, float min_lim, float max_lim);
 
 bool isReadingsOk(float val, float min_lim, float max_lim)
 {
+ bool retVal = true;
  if((val < min_lim) || (val > max_lim))
  {
-   return false;
+   retVal = false;
  }
-  return true;
+  return retVal;
 }
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
