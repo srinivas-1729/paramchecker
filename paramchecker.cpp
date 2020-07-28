@@ -6,10 +6,10 @@
 //  float vitalMaxVal;
 // };
 
-float vitalList[][] = {
- {bpm, 70, 150},
- {spo2, 80, 150},
- {respRate, 30, 60}
+float vitalList[][3] = {
+ {0, 70, 150},
+ {0, 80, 150},
+ {0, 30, 60}
 };
 
 bool isReadingsOk(float val, float min_lim, float max_lim)
@@ -24,9 +24,14 @@ bool isReadingsOk(float val, float min_lim, float max_lim)
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
   bool retVal = true;
+  
+  vitalList[0][0] = bpm;
+  vitalList[1][0] = spo2;
+  vitalList[2][0] = respRate; 
+ 
   for (int i = 0; i < 3; i++)
   {
-   retVal &= isReadingsOk(vitalList[i][1], vitalList[i][2], vitalList[i][3]);
+   retVal &= isReadingsOk(vitalList[i][0], vitalList[i][1], vitalList[i][2]);
   }
    return retVal;
 }
