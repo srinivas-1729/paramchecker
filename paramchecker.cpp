@@ -1,5 +1,17 @@
 #include "paramchecker.h"
 
+struct vital_config_s {
+ float vitalVal;
+ float vitalMinVal;
+ float vitalMaxVal;
+};
+
+vital_config_s vitalList[][] = {
+ {bpm, 70, 150},
+ {spo2, 80, 150},
+ {respRate, 30, 60}
+};
+
 bool isReadingsOk(float val, float min_lim, float max_lim)
 {
  bool retVal = true;
@@ -11,17 +23,10 @@ bool isReadingsOk(float val, float min_lim, float max_lim)
 }
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
-  return (bpmIsOk(bpm) && spo2IsOk(spo2) && respRateIsOk(respRate));
-}
-
-bool bpmIsOk(float bpm) {
-  isReadingsOk(bpm, 70, 150);
-}
-
-bool spo2IsOk(float spo2) {
-  isReadingsOk(spo2, 80, 150);
-}
-
-bool respRateIsOk(float respRate) {
-  isReadingsOk(respRate, 30, 60);
+  bool retVal = true;
+  for (int i = 0; i < 3; i++)
+  {
+   retVal &= isReadingsOk(vitalList[i][1], vitalList[i][2], vitalList[i][3]);
+  }
+   return retVal;
 }
