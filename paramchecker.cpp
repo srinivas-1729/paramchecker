@@ -1,12 +1,12 @@
 #include "paramchecker.h"
 
-// struct vital_config_s {
-//  float vitalVal;
-//  float vitalMinVal;
-//  float vitalMaxVal;
-// };
+struct vital_config_s {
+ float vitalVal;
+ float vitalMinVal;
+ float vitalMaxVal;
+};
 
-float vitalList[][3] = {
+vital_config_s vitalList[] = {
  {0, 70, 150},
  {0, 80, 150},
  {0, 30, 60}
@@ -22,7 +22,7 @@ bool isReadingsOk(float val, float min_lim, float max_lim)
   return retVal;
 }
 
-bool vitalsAreOk(float bpm, float spo2, float respRate) {
+bool vitalsAreOk(float *vitalList) {
   bool retVal = true;
   
   vitalList[0][0] = bpm;
