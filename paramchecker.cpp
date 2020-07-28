@@ -1,3 +1,5 @@
+#include "paramchecker.h"
+
 bool isReadingsOk(float val, float min_lim, float max_lim)
 {
  bool retVal = true;
