@@ -1,12 +1,12 @@
 #include "paramchecker.h"
 
-struct vital_config_s {
- float vitalVal;
- float vitalMinVal;
- float vitalMaxVal;
-};
+// struct vital_config_s {
+//  float vitalVal;
+//  float vitalMinVal;
+//  float vitalMaxVal;
+// };
 
-vital_config_s vitalList[][] = {
+float vitalList[][] = {
  {bpm, 70, 150},
  {spo2, 80, 150},
  {respRate, 30, 60}
