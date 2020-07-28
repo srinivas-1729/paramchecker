@@ -5,11 +5,11 @@ bool respRateIsOk(float respRate);
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
   
-  bool bpmRetVal = bpmIsOk(bpm);
-  
-  bool spo2RetVal = spo2IsOk(spo2);
-  
-  bool respRateRetVal = respRateIsOk(respRate);
+bool bpmRetVal = bpmIsOk(bpm);
+
+bool spo2RetVal = spo2IsOk(spo2);
+
+bool respRateRetVal = respRateIsOk(respRate);
   
   return (bpmRetVal && spo2RetVal && respRateRetVal);
 }
