@@ -6,11 +6,25 @@ struct vital_config_s {
  float vitalMaxVal;
 };
 
-vital_config_s vitalList[] = {
- {0, 70, 150},
- {0, 80, 150},
- {0, 30, 60}
+struct vital_param_s {
+  vital_config_s *vitalValList;
+  int numSensors;
+}
+
+#define BPM_VAL 100
+#define SPO2_VAL 100
+#define RESPRATE_VAL 50 
+
+vital_config_s vitalValList = {
+ {BPM_VAL, 70, 150},
+ {SPO2_VAL, 80, 150},
+ {RESPRATE_VAL, 30, 60}
 };
+
+vital_param_s vitalList = {
+  vitalValList,
+  sizeof(vitalValList)/sizeof(vitalValList[0])
+}
 
 bool isReadingsOk(float val, float min_lim, float max_lim)
 {
@@ -23,15 +37,12 @@ bool isReadingsOk(float val, float min_lim, float max_lim)
 }
 
 bool vitalsAreOk(float *vitalList) {
-  bool retVal = true;
   
-  vitalList[0][0] = bpm;
-  vitalList[1][0] = spo2;
-  vitalList[2][0] = respRate; 
- 
-  for (int i = 0; i < 3; i++)
+  bool retVal = true;
+
+  for (int i = 0; i < vitalList->numSensors; i++)
   {
-   retVal &= isReadingsOk(vitalList[i][0], vitalList[i][1], vitalList[i][2]);
+   retVal &= isReadingsOk(vitalList->vitalValList->vitalVal, vitalList->vitalValList->vitalMinVal, vitalList->vitalValList->vitalMaxVal);
   }
    return retVal;
 }
