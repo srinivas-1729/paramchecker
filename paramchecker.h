@@ -1,18 +1,47 @@
+#include <vector>
+#include <cmath>
 
-typedef struct {
- float vitalVal;
- float vitalMinVal;
- float vitalMaxVal;
-}vital_config_s;
+enum VITAL_ID {
+  bpm,
+  spo2,
+  respRate,
+  avgECG
+};
 
-typedef struct {
-  vital_config_s *vitalValList;
-  int numSensors;
-}vital_param_s;
+struct Measurement{
+    VITAL_ID id;
+    float measured_value;
+};
 
-bool bpmIsOk(float bpm);
-bool spo2IsOk(float spo2);
-bool respRateIsOk(float respRate);
-bool isReadingsOk(float val, float min_lim, float max_lim);
+class IVitalCheck {
+  public:
+    virtual bool measurementIsOk(float measurement) = 0; //pure virtual
+};
 
-bool vitalsAreOk(vital_param_s *vitalList);
+class VitalRangeCheck: public IVitalCheck {
+  public:
+    explicit VitalRangeCheck(float lower, float upper) {
+      m_lower = lower;
+      m_upper = upper;
+    }
+    virtual bool measurementIsOk(float measurement) {
+      return (measurement >= m_lower && measurement <= m_upper);
+    }
+  private:
+    float m_lower;
+    float m_upper;
+};
+
+class VitalValueCheck: public IVitalCheck {
+  public:
+    explicit VitalValueCheck(float alarmValue) {
+      m_alarmValue = alarmValue;
+    }
+    virtual bool measurementIsOk(float measurement) {
+      return std::abs(measurement - m_alarmValue) < 0.001;
+    }
+  private:
+    float m_alarmValue;
+};
+
+std::vector<bool> vitalsAreOk(const std::vector<Measurement>& measurements);
